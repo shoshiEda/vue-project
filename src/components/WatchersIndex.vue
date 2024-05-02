@@ -2,7 +2,7 @@
       <section class="watchers-index">
         <h3>Watchers:</h3>
             <button @click="onAddWatcher">Add a Watcher</button>
-            <WatcherList @remove="removeWatcher" :watchers="watchers" />
+            <WatcherList @remove="removeWatcher" :watchers="watchers" @select="goToWatcherDetails" />
         </section>
 </template>
 
@@ -34,6 +34,9 @@ export default{
                 shows:[]
             }
             this.watchers.unshift(watcher)
+        },
+        goToWatcherDetails(watcher){
+            this.$emit('selected', watcher)
         }
     },
     components: {

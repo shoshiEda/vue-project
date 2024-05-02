@@ -2,7 +2,7 @@
     <section class="watcher-list">
             <ul>
                 <li v-for="watcher in watchers" :key="watcher.id" :style="{ backgroundColor: randomColor() }">
-                    <WatcherPreview :watcher="watcher" />
+                    <WatcherPreview @click="onSelectWatcher(watcher)" :watcher="watcher" />
                     <button @click="onRemoveWatcher(watcher.id)">x</button>
                 </li>
             </ul>
@@ -21,7 +21,11 @@ export default {
         },    
         randomColor() {
             return '#' + Math.floor(Math.random() * 16777215).toString(16);
-        }
+        },
+
+        onSelectWatcher(watcher) {
+            this.$emit('select', watcher)
+        },  
 
     },
     created() {

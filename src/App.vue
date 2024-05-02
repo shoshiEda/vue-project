@@ -3,12 +3,14 @@ import Clock from './components/Clock.vue'
 import CountDown from './components/CountDown.vue'
 import WatchersIndex from './components/WatchersIndex.vue'
 import ShowCords from './components/ShowCords.vue'
+import WatcherInfo from './components/WatcherInfo.vue'
 
 
 export default {
   data(){
     return {
             router: 'Clock',
+            selectedWatcher:null,
         }
   },
 
@@ -17,6 +19,18 @@ export default {
     CountDown,
     WatchersIndex,
     ShowCords,
+    WatcherInfo,
+  },
+
+  methods:{
+  goToWatcher(watcher){
+    this.selectedWatcher=watcher
+    this.router = 'WatcherInfo'
+  },
+  goToWatchersIndex(){
+    this.router='WatchersIndex'
+
+  }
   }
 }
 </script>
@@ -29,14 +43,16 @@ export default {
       <button @click="router = 'CountDown'">CountDown</button>
       <button @click="router = 'WatchersIndex'">Watchers Index</button>
       <button @click="router = 'ShowCords'">Show cords</button>
+
     </nav>
   </header>
 
   <main>
     <Clock v-if="router === 'Clock'"/>
     <CountDown v-else-if="router === 'CountDown'" />
-    <WatchersIndex v-else-if="router === 'WatchersIndex'" />
+    <WatchersIndex v-else-if="router === 'WatchersIndex'" @selected="goToWatcher" />
     <ShowCords v-else-if="router === 'ShowCords'"  />
+    <WatcherInfo v-else-if="router === 'WatcherInfo'" :watcher="selectedWatcher" :pageIndex="router" @back="goToWatchersIndex" />
   </main>
 </template>
 
